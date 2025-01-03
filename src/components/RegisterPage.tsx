@@ -1,14 +1,17 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { UserModel } from "../interfaces/UserModel";
 import { useUserContext } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 export default function RegisterPage() {
   const { register, handleSubmit } = useForm<UserModel>();
   const { addUser } = useUserContext();
+  const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<UserModel> = (data) => {
     addUser({ username: data.username, password: data.password });
     console.log("User registered:", data);
+    navigate("/");
   };
 
   return (
@@ -116,6 +119,7 @@ export default function RegisterPage() {
         </div>
         <div className="mt-10">
           <button
+            onClick={() => navigate("/")}
             type="submit"
             className="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
